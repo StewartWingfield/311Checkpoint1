@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 
-const commentsController = require('../users/')
+const usersController = require('../users/')
 
 router.get('/', usersController.listUsers)
 
