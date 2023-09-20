@@ -26,7 +26,7 @@ const updateUser = (req, res) => {
     const updatedUser = req.body;
     const index = data.users.findIndex((user) => user.id === userId);
   
-    if (index === -1) {
+    if (index < 0 || index > 9) {
       res.status(400).json({ error: 'User not found' });
     } else {
       data.users[index] = { ...data.users[index], ...updatedUser };
@@ -38,7 +38,7 @@ const deleteUser = (req, res) => {
     const userId = req.params.id;
     const index = data.users.findIndex((user) => user.id === userId);
   
-    if (index === -1) {
+    if (index < 0 || index > 9) {
       res.status(400).json({ error: 'User not found' });
     } else {
       data.users.splice(index, 1);
