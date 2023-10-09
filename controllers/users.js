@@ -6,7 +6,8 @@ const listUsers = (req, res) => {
 
 const showUser = (req, res) => {
     const userId = req.params.id;
-    const user = data.find((data) => data.id === userId);
+    console.log(typeof userId)
+    const user = data.find((data) => data.id == userId);
   
     if (!user) {
       res.status(404).json({ error: 'User not found' });
@@ -16,7 +17,9 @@ const showUser = (req, res) => {
   }
 
 const createUser = (req, res) => {
-    const newUser = req.body;
+    const newUser = {
+      id: data.length + 1,
+      ...req.body}
     data.push(newUser);
     res.status(201).json(newUser);
   }
@@ -24,9 +27,9 @@ const createUser = (req, res) => {
 const updateUser = (req, res) => {
     const userId = req.params.id;
     const updatedUser = req.body;
-    const index = data.findIndex((data) => data.id === userId);
+    const index = data.findIndex((data) => data.id == userId);
   
-    if (index < 0 || index > 9) {
+    if (!index) {
       res.status(400).json({ error: 'User not found' });
     } else {
       data[index] = { ...data[index], ...updatedUser };
@@ -36,12 +39,15 @@ const updateUser = (req, res) => {
 
 const deleteUser = (req, res) => {
     const userId = req.params.id;
-    const index = data.findIndex((data) => data.id === userId);
+    const index = data.find((data) => data.id == userId);
+    console.log(index)
   
-    if (index < 0 || index > 9) {
+    if (!index) {
       res.status(400).json({ error: 'User not found' });
     } else {
-      data.splice(index, 1);
+      let rowIndex = data.indexOf(index)
+      console.log(rowIndex)
+      data.splice(rowIndex, 1);
       res.status(204).send();
     }}
 
